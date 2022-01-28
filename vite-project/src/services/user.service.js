@@ -1,16 +1,14 @@
-import axios from 'axios'
-import authHeader from './auth-header'
+/* eslint-disable class-methods-use-this */
+import api from './api'
 
-const API_URL = 'http://localhost:8080/api/test/'
+class UserService {
+  getPublicContent = () => api.get('/test/all')
 
-const getPublicContent = () => axios.get(`${API_URL}all`)
+  getUserBoard = () => api.get('/test/user')
 
-const getUserBoard = () => axios.get(`${API_URL}user`, { headers: authHeader() })
+  getModeratorBoard = () => api.get('/test/mod')
 
-const getModeratorBoard = () => axios.get(`${API_URL}mod`, { headers: authHeader() })
-
-const getAdminBoard = () => axios.get(`${API_URL}admin`, { headers: authHeader() })
-
-export default {
-  getPublicContent, getUserBoard, getModeratorBoard, getAdminBoard,
+  getAdminBoard = () => api.get('/test/admin')
 }
+
+export default new UserService()

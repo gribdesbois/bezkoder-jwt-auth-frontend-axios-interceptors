@@ -1,31 +1,30 @@
-import axios from 'axios'
+import api from '/api'
+import TokenService from './token.service'
 
-const API_URL = 'http://localhost:8080/api/auth/'
+class AuthService {
+  login = (username, password) => api
+    .post('auth/signin', {
+      username,
+      password,
+    })
+    .then((response) => {
+      if (response.data.accessToken) {
+        TokenService.setUser(response.data)
+      }
 
-const register = (username, email, password) => axios.post(`${API_URL}signup`, {
-  username,
-  email,
-  password,
-})
+      return response.data
+    })
 
-const login = (username, password) => axios
-  .post(`${API_URL}signin`, {
+  logout = () => {
+    TokenService.removeUser()
+  }
+
+  register = (username, email, password) => api.post('/auth/signup', {
     username,
+    email,
     password,
   })
-  .then((response) => {
-    if (response.data.accessToken) {
-      localStorage.setItem('user', JSON.stringify(response.data))
-    }
-    return response.data
-  })
 
-const logout = () => {
-  localStorage.removeItem('user')
+  getCurrentUser = () => TokenService.getUser()
 }
-
-const getCurrentUser = () => JSON.parse(localStorage.getItem('user'))
-
-export default {
-  register, login, logout, getCurrentUser,
-}
+export default new AuthService()
