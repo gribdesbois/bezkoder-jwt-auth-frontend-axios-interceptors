@@ -1,6 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react'
 import UserService from '../services/user.service'
+import EventBus from '../common/EventBus'
 
 function BoardUser() {
   const [content, setContent] = useState('')

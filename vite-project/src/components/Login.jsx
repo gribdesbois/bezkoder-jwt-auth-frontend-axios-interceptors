@@ -95,6 +95,13 @@ const Login = () => {
               validations={[required]}
             />
           </div>
+          <div className="form-group">
+            <button className="btn btn-primary btn-block" disabled={loading}>
+              {loading && <span className="spinner-border spinner-border-sm"></span>}
+              <span>Login</span>
+            </button>
+          </div>
+
           {
             message && <div className="form-group">
               <div className="alert alert-danger" role='alert'>

@@ -1,14 +1,15 @@
-/* eslint-disable class-methods-use-this */
-import api from './api'
+import api from './api.js'
 
-class UserService {
-  getPublicContent = () => api.get('/test/all')
+const getPublicContent = () => api.get('/test/all')
 
-  getUserBoard = () => api.get('/test/user')
+const getUserBoard = () => api.get('/test/user')
 
-  getModeratorBoard = () => api.get('/test/mod')
+const getModeratorBoard = () => api.get('/test/mod')
 
-  getAdminBoard = () => api.get('/test/admin')
+const getAdminBoard = () => api.get('/test/admin')
+
+const UserService = {
+  getPublicContent, getUserBoard, getModeratorBoard, getAdminBoard,
 }
 
-export default new UserService()
+export default UserService

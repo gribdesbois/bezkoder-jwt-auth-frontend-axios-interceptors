@@ -21,7 +21,7 @@ const BoardModerator = () => {
 
         setContent(_content)
 
-        if (error.response && error.response.status === 401) {
+        if (error.response && error.response.status === 403) {
           EventBus.dispatch('logout')
         }
       },

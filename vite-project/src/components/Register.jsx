@@ -1,9 +1,11 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import Form from 'react-validation/build/form'
 import Input from 'react-validation/build/input'
 import CheckButton from 'react-validation/build/button'
 import { isEmail } from 'validator'
+
+import { useNavigate } from 'react-router-dom'
 
 import AuthService from '../services/auth.service'
 
@@ -50,6 +52,7 @@ const vpassword = (value) => {
 function Register(props) {
   const form = useRef()
   const checkBtn = useRef()
+  const navigate = useNavigate()
 
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
@@ -93,6 +96,13 @@ function Register(props) {
     }
   }
 
+  useEffect(() => {
+    if (successful) {
+      setTimeout(2000)
+      navigate('/login')
+    }
+  }, [successful])
+
   return (
     <div className="col-md-12">
       <div className="card card-container">
@@ -109,7 +119,7 @@ function Register(props) {
               <Input
                 type='text'
                 className='form-control'
-                name={username}
+                name='username'
                 value={username}
                 onChange={onChangeUsername}
                 validations={[required, vusername]}
@@ -120,7 +130,7 @@ function Register(props) {
               <Input
                 type='text'
                 className='form-control'
-                name={email}
+                name='email'
                 value={email}
                 onChange={onChangeEmail}
                 validations={[required, validEmail]}
@@ -131,7 +141,7 @@ function Register(props) {
               <Input
                 type='text'
                 className='form-control'
-                name={password}
+                name='password'
                 value={password}
                 onChange={onChangePassword}
                 validations={[required, vpassword]}

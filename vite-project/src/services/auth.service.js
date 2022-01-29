@@ -1,30 +1,36 @@
-import api from '/api'
+import api from './api.js'
 import TokenService from './token.service'
 
-class AuthService {
-  login = (username, password) => api
-    .post('auth/signin', {
-      username,
-      password,
-    })
-    .then((response) => {
-      if (response.data.accessToken) {
-        TokenService.setUser(response.data)
-      }
-
-      return response.data
-    })
-
-  logout = () => {
-    TokenService.removeUser()
-  }
-
-  register = (username, email, password) => api.post('/auth/signup', {
+const login = (username, password) => api
+  .post('auth/signin', {
     username,
-    email,
     password,
   })
+  .then((response) => {
+    if (response.data.accessToken) {
+      TokenService.setUser(response.data)
+    }
 
-  getCurrentUser = () => TokenService.getUser()
+    return response.data
+  })
+
+const logout = () => {
+  TokenService.removeUser()
 }
-export default new AuthService()
+
+const register = (username, email, password) => api.post('/auth/signup', {
+  username,
+  email,
+  password,
+})
+
+const getCurrentUser = () => JSON.parse(localStorage.getItem('user'))
+
+const AuthService = {
+  register,
+  login,
+  logout,
+  getCurrentUser,
+}
+
+export default AuthService

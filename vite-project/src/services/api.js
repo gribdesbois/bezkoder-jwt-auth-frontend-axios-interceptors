@@ -4,7 +4,7 @@ import axios from 'axios'
 import TokenService from './token.service'
 
 const instance = axios.create({
-  baseURL: 'http://localhost:3000/api',
+  baseURL: 'http://localhost:8080/api',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -31,7 +31,7 @@ instance.interceptors.response.use(
         originalConfig._retry = true
         try {
           const rs = await instance.post('/auth/refreshToken', {
-            refreshToken: TokenService.getLocalAccessToken(),
+            refreshToken: TokenService.getLocalRefreshToken(),
           })
 
           const { accessToken } = rs.data
